@@ -143,46 +143,69 @@ const Gallery: React.FC = () => {
 
       {/* Fullscreen Image Modal */}
       {selectedImage && (
-        <Dialog open={isImageOpen} onOpenChange={closeImage}>
-          <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">
-            <div className="relative max-w-6xl max-h-screen p-4">
-              <button 
-                onClick={closeImage}
-                className="absolute top-4 right-4 text-white bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center z-10 hover:bg-opacity-70 transition-all"
-              >
-                <i className="fas fa-times"></i>
-              </button>
-              <img 
-                src={selectedImage.imageSrc} 
-                alt={selectedImage.title} 
-                className="max-w-full max-h-[90vh] object-contain"
-              />
-              <div className="absolute bottom-8 left-0 right-0 text-center text-white">
-                <h3 className="text-2xl font-medium">{selectedImage.title}</h3>
-                <p>{selectedImage.location}, {selectedImage.year}</p>
-              </div>
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
+          onClick={closeImage}
+        >
+          <div 
+            className="relative max-w-6xl max-h-screen p-4"
+            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on the content
+          >
+            <button 
+              onClick={closeImage}
+              className="absolute top-4 right-4 text-white bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center z-10 hover:bg-opacity-70 transition-all"
+            >
+              <i className="fas fa-times"></i>
+            </button>
+            <img 
+              src={selectedImage.imageSrc} 
+              alt={selectedImage.title} 
+              className="max-w-full max-h-[90vh] object-contain"
+            />
+            <div className="absolute bottom-8 left-0 right-0 text-center text-white">
+              <h3 className="text-2xl font-medium">{selectedImage.title}</h3>
+              <p>{selectedImage.location}, {selectedImage.year}</p>
             </div>
           </div>
-        </Dialog>
+        </div>
       )}
 
       {/* Full Gallery Modal */}
-      <Dialog open={isFullGalleryOpen} onOpenChange={closeFullGallery}>
-        <div className="fixed inset-0 bg-white overflow-y-auto z-50">
-          <div className="sticky top-0 bg-white bg-opacity-90 backdrop-blur-md p-4 flex items-center justify-between border-b">
+      {isFullGalleryOpen && (
+        <div 
+          className="fixed inset-0 flex flex-col z-50"
+        >
+          <div className="sticky top-0 bg-white bg-opacity-95 backdrop-blur-md p-4 flex items-center justify-between border-b z-10 shadow-sm">
             <h2 className="text-2xl font-bold text-gray-900">Full Portfolio Gallery</h2>
             <button 
               onClick={closeFullGallery}
-              className="text-gray-900 hover:text-primary transition-colors"
+              className="text-gray-900 hover:text-primary transition-colors p-2 rounded-full hover:bg-gray-100"
+              aria-label="Close gallery"
             >
               <i className="fas fa-times text-xl"></i>
             </button>
           </div>
-          <div className="p-4 md:p-8">
+          <div 
+            className="flex-1 bg-white overflow-y-auto p-4 md:p-8"
+            onClick={(e) => {
+              // Close if clicking directly on the background (not on an image)
+              if (e.target === e.currentTarget) {
+                closeFullGallery();
+              }
+            }}
+          >
             <FullScreenGallery />
+            <div className="mt-8 text-center pb-8">
+              <button 
+                onClick={closeFullGallery}
+                className="inline-flex items-center justify-center px-6 py-2 bg-gray-100 text-gray-800 rounded-full hover:bg-gray-200 transition-colors"
+              >
+                Close Gallery
+              </button>
+            </div>
           </div>
         </div>
-      </Dialog>
+      )}
     </section>
   );
 };
