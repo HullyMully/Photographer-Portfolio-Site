@@ -10,24 +10,41 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <section id="home" className="h-screen flex items-center justify-center bg-[#1A202C] relative overflow-hidden">
-      <div className="absolute inset-0 opacity-60">
-        <img 
-          src="https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80" 
-          alt="Stunning landscape photograph" 
-          className="object-cover w-full h-full"
-        />
+    <section id="home" className="h-screen flex flex-col items-center justify-center bg-white relative overflow-hidden pt-20">
+      <div className="container mx-auto px-4 md:px-6 relative z-10 text-center max-w-5xl">
+        <h1 className="font-sans font-bold text-5xl md:text-7xl text-black mb-6 tracking-tight leading-tight">
+          <span className="bg-gradient-to-r from-primary to-blue-400 text-transparent bg-clip-text">Capturing Life</span>
+          <br/>
+          Through a Lens
+        </h1>
+        <p className="text-gray-600 text-xl md:text-2xl mb-12 max-w-3xl mx-auto font-light leading-relaxed">
+          Photography that tells stories and preserves moments with simplicity and emotion
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="#gallery" 
+            onClick={scrollToGallery}
+            className="inline-block bg-primary text-white font-medium py-3 px-8 rounded-full hover:bg-opacity-90 transition-all shadow-lg hover:shadow-xl"
+          >
+            View Gallery
+          </a>
+          <a 
+            href="#contact" 
+            onClick={(e) => {
+              e.preventDefault();
+              const contactSection = document.getElementById('contact');
+              if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
+            className="inline-block bg-white text-primary font-medium py-3 px-8 rounded-full border border-primary hover:bg-gray-50 transition-all"
+          >
+            Contact Me
+          </a>
+        </div>
       </div>
-      <div className="container mx-auto px-4 md:px-6 relative z-10 text-center">
-        <h1 className="font-serif font-bold text-4xl md:text-6xl text-white mb-4 md:mb-6">Capturing Moments in Time</h1>
-        <p className="text-white text-lg md:text-xl mb-8 max-w-2xl mx-auto">Landscape and portrait photography that tells a story</p>
-        <a 
-          href="#gallery" 
-          onClick={scrollToGallery}
-          className="inline-block bg-white text-primary font-medium py-3 px-8 rounded-md hover:bg-accent transition-colors"
-        >
-          View Gallery
-        </a>
+      <div className="absolute bottom-0 w-full overflow-hidden">
+        <div className="w-full h-12 bg-gradient-to-t from-gray-100 to-transparent"></div>
       </div>
     </section>
   );

@@ -2,12 +2,17 @@ import React, { useState, useEffect } from 'react';
 
 const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrollPosition, setScrollPosition] = useState(0);
+  const [scrolled, setScrolled] = useState(false);
 
   // Track scroll position for header styling
   useEffect(() => {
     const handleScroll = () => {
-      setScrollPosition(window.scrollY);
+      const offset = window.scrollY;
+      if (offset > 10) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -31,34 +36,34 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="fixed w-full bg-white bg-opacity-95 shadow-sm z-50">
-      <div className="container mx-auto px-4 md:px-6 py-4">
+    <header className={`fixed w-full z-50 transition-all duration-300 ease-in-out ${scrolled ? 'backdrop-blur-md bg-white/80' : 'bg-transparent'}`}>
+      <div className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
           <a 
             href="#home" 
             onClick={scrollToSection('home')}
-            className="font-serif font-bold text-2xl md:text-3xl text-primary"
+            className="font-sans font-semibold text-xl text-primary"
           >
-            Emma Rivers
+            Alex Mitchell
           </a>
           
           {/* Mobile menu button */}
           <button 
             onClick={handleMobileMenuToggle} 
-            className="md:hidden text-secondary focus:outline-none"
+            className="md:hidden text-primary focus:outline-none"
             aria-label="Toggle mobile menu"
           >
-            <i className="fas fa-bars text-xl"></i>
+            <i className={`fas ${mobileMenuOpen ? 'fa-times' : 'fa-bars'} text-lg`}></i>
           </button>
           
           {/* Desktop Navigation */}
           <nav className="hidden md:block">
-            <ul className="flex space-x-8 text-secondary font-medium">
+            <ul className="flex space-x-10 text-gray-800 font-medium text-sm">
               <li>
                 <a 
                   href="#home" 
                   onClick={scrollToSection('home')}
-                  className="hover:text-primary transition-colors"
+                  className="hover:text-primary transition-colors py-1"
                 >
                   Home
                 </a>
@@ -67,7 +72,7 @@ const Header: React.FC = () => {
                 <a 
                   href="#about" 
                   onClick={scrollToSection('about')}
-                  className="hover:text-primary transition-colors"
+                  className="hover:text-primary transition-colors py-1"
                 >
                   About
                 </a>
@@ -76,7 +81,7 @@ const Header: React.FC = () => {
                 <a 
                   href="#gallery" 
                   onClick={scrollToSection('gallery')}
-                  className="hover:text-primary transition-colors"
+                  className="hover:text-primary transition-colors py-1"
                 >
                   Gallery
                 </a>
@@ -85,7 +90,7 @@ const Header: React.FC = () => {
                 <a 
                   href="#contact" 
                   onClick={scrollToSection('contact')}
-                  className="hover:text-primary transition-colors"
+                  className="hover:text-primary transition-colors py-1"
                 >
                   Contact
                 </a>
@@ -95,60 +100,71 @@ const Header: React.FC = () => {
         </div>
         
         {/* Mobile Navigation */}
-        <nav 
-          className={`md:hidden ${mobileMenuOpen ? 'max-h-[1000px]' : 'max-h-0'} overflow-hidden transition-[max-height] duration-500 ease-in-out`}
+        <div 
+          className={`fixed inset-0 bg-white z-40 transition-transform duration-300 ease-in-out transform ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'} md:hidden`}
         >
-          <ul className="pt-4 pb-2 text-secondary font-medium">
-            <li className="py-2 border-b border-accent">
-              <a 
-                href="#home" 
-                onClick={(e) => {
-                  scrollToSection('home')(e);
-                  handleMobileMenuClick();
-                }}
-                className="block"
-              >
-                Home
-              </a>
-            </li>
-            <li className="py-2 border-b border-accent">
-              <a 
-                href="#about" 
-                onClick={(e) => {
-                  scrollToSection('about')(e);
-                  handleMobileMenuClick();
-                }}
-                className="block"
-              >
-                About
-              </a>
-            </li>
-            <li className="py-2 border-b border-accent">
-              <a 
-                href="#gallery" 
-                onClick={(e) => {
-                  scrollToSection('gallery')(e);
-                  handleMobileMenuClick();
-                }}
-                className="block"
-              >
-                Gallery
-              </a>
-            </li>
-            <li className="py-2">
-              <a 
-                href="#contact" 
-                onClick={(e) => {
-                  scrollToSection('contact')(e);
-                  handleMobileMenuClick();
-                }}
-                className="block"
-              >
-                Contact
-              </a>
-            </li>
-          </ul>
-        </nav>
+          <div className="flex justify-end p-6">
+            <button 
+              onClick={handleMobileMenuToggle}
+              className="text-primary focus:outline-none"
+              aria-label="Close menu"
+            >
+              <i className="fas fa-times text-xl"></i>
+            </button>
+          </div>
+          <nav className="flex items-center justify-center h-full">
+            <ul className="text-center space-y-8 text-gray-800 text-lg font-light">
+              <li>
+                <a 
+                  href="#home" 
+                  onClick={(e) => {
+                    scrollToSection('home')(e);
+                    handleMobileMenuClick();
+                  }}
+                  className="hover:text-primary transition-colors"
+                >
+                  Home
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#about" 
+                  onClick={(e) => {
+                    scrollToSection('about')(e);
+                    handleMobileMenuClick();
+                  }}
+                  className="hover:text-primary transition-colors"
+                >
+                  About
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#gallery" 
+                  onClick={(e) => {
+                    scrollToSection('gallery')(e);
+                    handleMobileMenuClick();
+                  }}
+                  className="hover:text-primary transition-colors"
+                >
+                  Gallery
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#contact" 
+                  onClick={(e) => {
+                    scrollToSection('contact')(e);
+                    handleMobileMenuClick();
+                  }}
+                  className="hover:text-primary transition-colors"
+                >
+                  Contact
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
     </header>
   );

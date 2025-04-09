@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Dialog } from '@/components/ui/dialog';
 
 interface GalleryItem {
   id: number;
@@ -11,77 +12,177 @@ interface GalleryItem {
 const galleryItems: GalleryItem[] = [
   {
     id: 1,
-    imageSrc: "https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-    title: "Mountain Twilight",
-    location: "Oregon",
+    imageSrc: "https://images.unsplash.com/photo-1604537466608-109fa2f16c3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1400&q=80",
+    title: "Serenity",
+    location: "Olympic National Park",
     year: "2022"
   },
   {
     id: 2,
-    imageSrc: "https://images.unsplash.com/photo-1488161628813-04466f872be2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-    title: "Golden Hour Portrait",
-    location: "California",
+    imageSrc: "https://images.unsplash.com/photo-1549558549-415fe4c37b60?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1400&q=80",
+    title: "Perspective",
+    location: "Los Angeles",
     year: "2023"
   },
   {
     id: 3,
-    imageSrc: "https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-    title: "Mirror Lake",
-    location: "Washington",
+    imageSrc: "https://images.unsplash.com/photo-1525874684015-58379d421a52?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1400&q=80",
+    title: "Symmetry",
+    location: "Banff",
     year: "2021"
   },
   {
     id: 4,
-    imageSrc: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-    title: "The Journey",
+    imageSrc: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1400&q=80",
+    title: "Expedition",
     location: "Montana",
     year: "2022"
   },
   {
     id: 5,
-    imageSrc: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-    title: "City Geometry",
-    location: "New York",
+    imageSrc: "https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1400&q=80",
+    title: "Local Flavor",
+    location: "Portland",
     year: "2023"
   },
   {
     id: 6,
-    imageSrc: "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-    title: "Wild Encounter",
-    location: "Alaska",
+    imageSrc: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1400&q=80",
+    title: "Majesty",
+    location: "Yosemite",
     year: "2021"
   }
 ];
 
-const Gallery: React.FC = () => {
+const FullScreenGallery: React.FC = () => {
+  // Create a new list with 12 gallery items - duplicating the existing ones
+  const extendedGallery = [...galleryItems, ...galleryItems];
+  
   return (
-    <section id="gallery" className="py-16 md:py-24 bg-accent bg-opacity-30">
+    <div className="p-0">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {extendedGallery.map((item, index) => (
+          <div key={`full-${index}`} className="aspect-square overflow-hidden rounded-lg">
+            <img 
+              src={item.imageSrc} 
+              alt={item.title} 
+              className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const Gallery: React.FC = () => {
+  const [isImageOpen, setIsImageOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
+  const [isFullGalleryOpen, setIsFullGalleryOpen] = useState(false);
+
+  const openImage = (item: GalleryItem) => {
+    setSelectedImage(item);
+    setIsImageOpen(true);
+  };
+
+  const closeImage = () => {
+    setIsImageOpen(false);
+    setSelectedImage(null);
+  };
+
+  const openFullGallery = () => {
+    setIsFullGalleryOpen(true);
+  };
+
+  const closeFullGallery = () => {
+    setIsFullGalleryOpen(false);
+  };
+
+  return (
+    <section id="gallery" className="py-20 md:py-28 bg-white">
       <div className="container mx-auto px-4 md:px-6">
-        <h2 className="font-serif font-bold text-3xl md:text-4xl mb-6 text-center">My Portfolio</h2>
-        <p className="text-center text-secondary max-w-2xl mx-auto mb-12">A selection of my favorite captures from around the world, each telling a unique story about our beautiful planet and its inhabitants.</p>
+        <div className="text-center mb-16 max-w-3xl mx-auto">
+          <h4 className="text-primary font-medium mb-2">My Work</h4>
+          <h2 className="font-sans font-bold text-3xl md:text-4xl mb-6 text-gray-900">Featured Photography</h2>
+          <p className="text-gray-600 text-lg">
+            A curated selection of my personal projects and client work, showing my range and style across landscapes, portraits, and creative concepts.
+          </p>
+        </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {galleryItems.map((item) => (
-            <div key={item.id} className="gallery-item rounded-lg overflow-hidden shadow-lg group relative">
-              <img 
-                src={item.imageSrc} 
-                alt={item.title} 
-                className="w-full h-80 object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-[rgba(26,32,44,0.7)] overflow-hidden w-full h-0 group-hover:h-1/4 transition-[height] duration-500 ease-in-out">
-                <div className="p-4">
-                  <h3 className="text-white font-medium">{item.title}</h3>
-                  <p className="text-white text-sm opacity-80">{item.location}, {item.year}</p>
+            <div key={item.id} className="rounded-xl overflow-hidden group relative bg-white shadow-xl hover:shadow-2xl transition-all duration-300">
+              <div 
+                className="cursor-pointer"
+                onClick={() => openImage(item)}
+              >
+                <img 
+                  src={item.imageSrc} 
+                  alt={item.title} 
+                  className="w-full h-80 object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
+                />
+                <div className="p-5">
+                  <h3 className="font-medium text-xl text-gray-900">{item.title}</h3>
+                  <p className="text-gray-600">{item.location}, {item.year}</p>
                 </div>
               </div>
             </div>
           ))}
         </div>
         
-        <div className="mt-12 text-center">
-          <a href="#" className="inline-block border-2 border-primary text-primary font-medium py-3 px-8 rounded-md hover:bg-primary hover:text-white transition-colors">View Full Gallery</a>
+        <div className="mt-16 text-center">
+          <button 
+            onClick={openFullGallery}
+            className="inline-flex items-center justify-center bg-primary text-white font-medium py-3 px-8 rounded-full hover:bg-opacity-90 transition-all shadow-lg hover:shadow-xl"
+          >
+            <span>View Full Gallery</span>
+            <i className="fas fa-arrow-right ml-2"></i>
+          </button>
         </div>
       </div>
+
+      {/* Fullscreen Image Modal */}
+      {selectedImage && (
+        <Dialog open={isImageOpen} onOpenChange={closeImage}>
+          <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">
+            <div className="relative max-w-6xl max-h-screen p-4">
+              <button 
+                onClick={closeImage}
+                className="absolute top-4 right-4 text-white bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center z-10 hover:bg-opacity-70 transition-all"
+              >
+                <i className="fas fa-times"></i>
+              </button>
+              <img 
+                src={selectedImage.imageSrc} 
+                alt={selectedImage.title} 
+                className="max-w-full max-h-[90vh] object-contain"
+              />
+              <div className="absolute bottom-8 left-0 right-0 text-center text-white">
+                <h3 className="text-2xl font-medium">{selectedImage.title}</h3>
+                <p>{selectedImage.location}, {selectedImage.year}</p>
+              </div>
+            </div>
+          </div>
+        </Dialog>
+      )}
+
+      {/* Full Gallery Modal */}
+      <Dialog open={isFullGalleryOpen} onOpenChange={closeFullGallery}>
+        <div className="fixed inset-0 bg-white overflow-y-auto z-50">
+          <div className="sticky top-0 bg-white bg-opacity-90 backdrop-blur-md p-4 flex items-center justify-between border-b">
+            <h2 className="text-2xl font-bold text-gray-900">Full Portfolio Gallery</h2>
+            <button 
+              onClick={closeFullGallery}
+              className="text-gray-900 hover:text-primary transition-colors"
+            >
+              <i className="fas fa-times text-xl"></i>
+            </button>
+          </div>
+          <div className="p-4 md:p-8">
+            <FullScreenGallery />
+          </div>
+        </div>
+      </Dialog>
     </section>
   );
 };
