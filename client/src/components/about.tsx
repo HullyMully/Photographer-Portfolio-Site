@@ -19,8 +19,8 @@ const About: React.FC = () => {
             <h4 className="text-primary font-medium mb-2">About Me</h4>
             <h2 className="font-sans font-bold text-3xl md:text-4xl mb-6 text-gray-900">Storytelling Through Photography</h2>
             <div className="prose prose-lg max-w-none text-gray-600 leading-relaxed">
-              <p className="mb-4">I'm Alex Mitchell, a landscape and portrait photographer based in Portland, Oregon. For over seven years, I've been documenting the relationship between people and the environment through my lens.</p>
-              <p className="mb-4">My photography style emphasizes simplicity, clean lines, and natural light—revealing beauty in minimalism. I focus on creating images that evoke emotion while maintaining technical precision.</p>
+              <p className="mb-4">Hi, I'm Alex Mitchell, a photographer based out of Portland, Oregon. My passion for photography started seven years ago when I first picked up a camera. Since then, I've been shooting landscapes and portraits, striving to capture the special moments and emotions in each frame.</p>
+              <p className="mb-4">My approach to photography is based on sincerity and attention to detail. I believe that every shot should tell a story and convey the mood of the moment. When working with clients, I try to create a comfortable atmosphere to get the most natural and expressive shots.</p>
               <p className="mb-6">When not traveling for photoshoots, I teach photography workshops and collaborate with brands that share my aesthetic vision and environmental values.</p>
               <div className="flex items-center space-x-6 text-gray-700 mt-8">
                 <a href="https://www.instagram.com/alexmitchellphoto" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors" aria-label="Instagram">

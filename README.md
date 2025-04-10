@@ -12,23 +12,23 @@ A modern, responsive photography portfolio website for Alex Mitchell, showcasing
 - **Contact Form**: Easy way for potential clients to get in touch
 - **Performance Optimized**: Fast loading times and smooth transitions
 
+## 📸 Screenshots
+
+### Home Page
+![Home Page](screenshots/home.png)
+
+### Gallery
+![Gallery](screenshots/gallery.png)
+
+### About
+![About](screenshots/about.png)
+
 ## 🚀 Technologies Used
 
 - **Frontend**: React, TypeScript, Tailwind CSS
 - **Styling**: Custom CSS with responsive design principles
 - **Icons**: Font Awesome
 - **Fonts**: Inter, Playfair Display
-
-## 📸 Screenshots
-
-### Home Page
-![Home Page](https://via.placeholder.com/800x450.png?text=Home+Page)
-
-### Gallery
-![Gallery](https://via.placeholder.com/800x450.png?text=Gallery)
-
-### About
-![About](https://via.placeholder.com/800x450.png?text=About)
 
 ## 🛠️ Installation
 
@@ -40,16 +40,27 @@ A modern, responsive photography portfolio website for Alex Mitchell, showcasing
 
 2. Install dependencies:
    ```bash
+   # Install root dependencies
+   npm install
+
+   # Install client dependencies
    cd client
    npm install
    ```
 
 3. Start the development server:
    ```bash
+   # Start the backend server (from root directory)
+   npm run dev
+
+   # In another terminal, start the frontend (from client directory)
+   cd client
    npm run dev
    ```
 
-4. Open your browser and navigate to `http://localhost:3000`
+4. Open your browser and navigate to:
+   - Frontend: `http://localhost:5173`
+   - Backend: `http://localhost:3000`
 
 ## 📝 License
 
@@ -67,4 +78,5 @@ For inquiries about photography services, workshops, or collaborations, please r
 - Instagram: [@alexmitchellphoto](https://www.instagram.com/alexmitchellphoto)
 - Twitter: [@alexmitchphoto](https://www.twitter.com/alexmitchphoto)
 - LinkedIn: [Alex Mitchell Photography](https://www.linkedin.com/in/alexmitchellphotography)
-- Behance: [Alex Mitchell](https://www.behance.net/alexmitchell) 
+- Behance: [Alex Mitchell](https://www.behance.net/alexmitchell)
+
