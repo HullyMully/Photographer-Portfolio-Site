@@ -105,8 +105,7 @@ const Gallery: React.FC = () => {
           <h4 className="text-primary font-medium mb-2">My Work</h4>
           <h2 className="font-sans font-bold text-3xl md:text-4xl mb-6 text-gray-900">Featured Photography</h2>
           <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            Добро пожаловать в мою галерею! Здесь вы найдете подборку моих любимых работ - от пейзажей до портретов. Каждый снимок - это отдельная история, момент, который я хотел сохранить и поделиться с вами.
-          </p>
+          Welcome to my gallery! Here you will find a selection of my favorite works, from landscapes to portraits. Each shot is a story, a moment I wanted to preserve and share with you. </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
